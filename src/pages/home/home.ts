@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { WeatherProvider } from '../../providers/weather/weather';
 
 @Component({
@@ -9,37 +9,31 @@ import { WeatherProvider } from '../../providers/weather/weather';
 export class HomePage {
 
   weather:any;
-  // location:{
-    city:string
-  // }
+  city:string;
+  title:string = 'Home';
 
-  constructor(public navCtrl: NavController, private wp: WeatherProvider) {
-
+  constructor(public navCtrl: NavController, private wp: WeatherProvider, public navParams: NavParams) {
+    this.city = navParams.get('city');
+    this.title = navParams.get('title');
+    console.log(navParams.get('title'));
   }
 
   ionViewWillEnter(){
-    // this.location = {
-    //   city: 'Lviv'
-    // }
-
-    // this.wp.getCurrentForecastInHoursByName(this.location.city).subscribe(weather => {
-    //   // console.log(weather.list);
-    //   this.weather = (weather.list as Array<any>).map(item => {
-    //     return { data: item.dt_txt, temp: item.main.temp }
-    //   });
-    //   console.log(this.weather);
-    // })
-
-    this.wp.getCoordinates().then(coordinates => {
-      this.wp.getCurrentForecastInHoursByCoordinates(coordinates).subscribe(weather => {
-        console.log(weather);
-        this.city = weather.city.name;
-        
+    if(!this.city){
+      this.wp.getCoordinates().then(coordinates => {
+        this.wp.getCurrentForecastInHoursByCoordinates(coordinates).subscribe(weather => {
+          this.city = weather.city.name;
+          this.weather = (weather.list as Array<any>).map(item => {
+            return { data: item.dt_txt, temp: item.main.temp }
+          });
+        });
+      });;
+    } else {
+      this.wp.getCurrentForecastInHoursByName(this.city).subscribe(weather => {
         this.weather = (weather.list as Array<any>).map(item => {
           return { data: item.dt_txt, temp: item.main.temp }
         });
-      });
-    });;
-
+      })
+    }
   }
 }
