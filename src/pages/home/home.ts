@@ -32,16 +32,32 @@ export class HomePage {
     if(!this.city && !this.lat){
       this.wp.getCoordinates().then(coordinates => {
         this.wp.getCurrentForecastInHoursByCoordinates(coordinates).subscribe(weather => {
+          console.log(weather);
           this.city = weather.city.name;
           this.weather = (weather.list as Array<any>).map(item => {
-            return { data: item.dt_txt, temp: item.main.temp }
+            return { 
+              data: item.dt_txt,
+              temp: item.main.temp,
+              humidity: item.main.humidity,
+              pressure: item.main.pressure,
+              weather: item.weather[0].description,
+              wind_speed: item.wind.speed
+            }
           });
         });
       });;
     } else if(this.city) {
       this.wp.getCurrentForecastInHoursByName(this.city).subscribe(weather => {
+        console.log(weather);
         this.weather = (weather.list as Array<any>).map(item => {
-          return { data: item.dt_txt, temp: item.main.temp }
+          return { 
+            data: item.dt_txt,
+            temp: item.main.temp,
+            humidity: item.main.humidity,
+            pressure: item.main.pressure,
+            weather: item.weather[0].description,
+            wind_speed: item.wind.speed
+          }
         });
       })
     } else {
@@ -50,13 +66,21 @@ export class HomePage {
         console.log(weather);
         this.city = weather.city.name;
         this.weather = (weather.list as Array<any>).map(item => {
-          return { data: item.dt_txt, temp: item.main.temp }
+          return { 
+            data: item.dt_txt,
+            temp: item.main.temp,
+            humidity: item.main.humidity,
+            pressure: item.main.pressure,
+            weather: item.weather[0].description,
+            wind_speed: item.wind.speed
+          }
         });
       });
     }
   }
 
   showDetails(weatherDetails){
+    console.log("1111",weatherDetails);
      this.navCtrl.push(DetailsPage, weatherDetails);
   }
 }
