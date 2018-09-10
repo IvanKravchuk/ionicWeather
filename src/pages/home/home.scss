@@ -3,8 +3,13 @@ page-home {
 }
 
 .title {
-    text-align: center
+    text-align: center;
+    font-size: 30px; 
 }
 .item {
     display: inline-block;
+}
+.icon-menu {
+    width: 10px;
+    height: auto;
 }

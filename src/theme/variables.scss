@@ -11,6 +11,9 @@ $colors: (
 );
 
 $toolbar-md-background: color($colors, secondary);
+$toolbar-md-text-color: color($colors, primary);
+$toolbar-md-title-font-size: 40px;
+$toolbar-md-title-text-color: color($colors, light);
 
 $tabs-md-background: color($colors, secondary);
 $tabs-md-tab-color-active: color($colors, light);

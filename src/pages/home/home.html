@@ -1,11 +1,18 @@
 <ion-header>
   <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu" class="icon-menu"></ion-icon>
+    </button>
     <ion-title>{{title ? title : 'Home'}}</ion-title>
   </ion-navbar>
+  <ion-toolbar>
+      <ion-title>{{city}}</ion-title>
+      
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="home">
-        <h1 class="title">{{city}}</h1>
+        <!-- <h1 class="title">{{city}}</h1> -->
         <ion-list>
           <ion-item class="item" *ngFor="let w of weather">
             <h3>date {{w.data | date:'MM/dd/yyyy h:mm a' }}</h3>

@@ -1,18 +1,28 @@
-<!--
-  Generated template for the SettingsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-  <ion-toolbar dark>
-    <ion-title>Settings</ion-title>
-  </ion-toolbar>
-
+    <ion-navbar>
+        <button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Settings</ion-title>
+      </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+  <ion-grid>
+    <ion-row>
+        <ion-col>
+          <ion-input placeholder="Enter Your City" clearInput [(ngModel)]="city" (focus)="showKeyboard()"></ion-input>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <button ion-button full color="light" type="button" (click)="showForecastByCity()">Search</button>
+    </ion-row>
+  </ion-grid>
+    
+       
+<!--     
 <input type="text" value={{city}} [(ngModel)]="city" (focus)="showKeyboard()">
-<button type="button" (click)="showForecastByCity()" >go</button>
+<button type="button" (click)="showForecastByCity()" >go</button> -->
+<div id="map" style="width: 100%;height: 100%"></div>
 </ion-content>
