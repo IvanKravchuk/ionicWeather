@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { WeatherProvider } from '../../providers/weather/weather';
+import { DetailsPage } from '../details/details';
 
 // @IonicPage()
 @Component({
@@ -53,5 +54,9 @@ export class HomePage {
         });
       });
     }
+  }
+
+  showDetails(weatherDetails){
+     this.navCtrl.push(DetailsPage, weatherDetails);
   }
 }
