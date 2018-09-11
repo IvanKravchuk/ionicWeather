@@ -10,17 +10,17 @@
     <ion-row>
         <ion-col>
           <ion-searchbar placeholder="Enter Your City" clearInput [(ngModel)]="city" (focus)="showKeyboard()"
-          (ionInput)="getItems()"></ion-searchbar>
+          (ionInput)="getCities()"></ion-searchbar>
         </ion-col>
     </ion-row>
     <ion-row>
         <button ion-button full color="light" type="button" (click)="showForecastByCity()">Search</button>
     </ion-row>
   </ion-grid>
-  <ion-list *ngIf="showList">
-      <ion-item *ngFor="let item of items" (click)="selectItem(item)">
-        {{ item }}
+  <ion-list *ngIf="showCitiesList">
+      <ion-item *ngFor="let city of cities" (click)="selectCity(city)">
+        {{ city }}
       </ion-item>
     </ion-list>  
-  <div id="map" style="width: 100%;height: 100%"></div>
+    <maps (getLocation)="getLocation($event)"></maps>
 </ion-content>

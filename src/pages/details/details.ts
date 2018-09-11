@@ -12,11 +12,5 @@ export class DetailsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.weather = navParams.data;
-    console.log("asd",this.weather);
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailsPage');
-  }
-
 }
