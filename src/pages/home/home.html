@@ -6,17 +6,28 @@
     </button>
   </ion-navbar>
   <ion-toolbar>
-      <ion-title>{{city}}</ion-title>
-      
+    <ion-title>{{city}}</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding class="home">
-        <!-- <h1 class="title">{{city}}</h1> -->
-        <ion-list>
-          <ion-item class="item" *ngFor="let w of weather" (click)="showDetails(w)">
-            <h3>date {{w.data | date:'MM/dd/yyyy h:mm a' }}</h3>
-            <h3>temperature {{w.temp}} C</h3>
-          </ion-item>
-        </ion-list>
+  <!-- <ion-list>
+    <ion-item class="item" *ngFor="let w of weather" (click)="showDetails(w)">
+      <h3>date {{w.data | date:'MM/dd/yyyy h:mm a' }}</h3>
+      <h3>temperature {{w.temp}} C</h3>
+    </ion-item>
+  </ion-list> -->
+  <ion-list [virtualScroll]="weather" [headerFn]="myHeaderFn">
+
+    <ion-item-divider *virtualHeader="let header">
+      {{ header.toString() }}
+    </ion-item-divider>
+
+    <ion-item *virtualItem="let w">
+      <h3 class="item">{{w.data | date:'h:mm a' }}</h3>
+      <h3 class="item">temperature {{w.temp}} C</h3>
+    </ion-item>
+
+  </ion-list>
 </ion-content>

@@ -1,3 +1,4 @@
+import { WeatherProvider } from './../../providers/weather/weather';
 import { Component } from '@angular/core';
 import { Keyboard } from '@ionic-native/keyboard';
 import { NavController, NavParams, Events, ToastController } from 'ionic-angular';
@@ -15,22 +16,30 @@ export class SettingsPage {
     public navParams: NavParams,
     private keyboard: Keyboard,
     public events: Events,
-    private toast: ToastController
+    private toast: ToastController,
+    private wp: WeatherProvider
   ) {
     this.title = 'Settings';
     this.initializeCities();
+  }
+
+  ionViewWillEnter() {
+    this.wp.getCoordinates().then(coordinates => {
+      this.coordinates = coordinates;
+    });
   }
 
   city: string;
   title: string;
   cities: string[];
   showCitiesList: boolean = false;
+  coordinates: any;
 
   initializeCities() {
     this.cities = NAMES;
   }
 
-  getLocation(coordinates){
+  getLocation(coordinates) {
     this.showForecastByCoordinatesOnMap(coordinates);
   }
 

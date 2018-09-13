@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, OnChanges, ElementRef, ViewChild, Input } from '@angular/core';
 
 declare var google: any;
 
@@ -6,24 +6,28 @@ declare var google: any;
   selector: 'maps',
   templateUrl: 'maps.html'
 })
-export class MapsComponent implements AfterViewInit {
+export class MapsComponent implements OnChanges {
 
   map: any;
-  @ViewChild('map') el:ElementRef;
+  @Input() coordinates: any;
+  @ViewChild('map') el: ElementRef;
 
 
   @Output() getLocation = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
-  ngAfterViewInit(): void {
-    this.initMap();
+  ngOnChanges(): void {
+    if (this.coordinates) {
+      this.initMap(this.coordinates);
+    }
   }
 
-  initMap(): void {
-    var mapCanvas = this.el.nativeElement;
-    var myCenter = new google.maps.LatLng(48, 24);
-    var mapOptions = {
+  initMap(c): void {
+    let mapCanvas = this.el.nativeElement;
+    // var myCenter = new google.maps.LatLng(48, 24);
+    let myCenter = new google.maps.LatLng(c.lat, c.lng);
+    let mapOptions = {
       center: myCenter,
       zoom: 8
     }

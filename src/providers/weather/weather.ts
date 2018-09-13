@@ -35,7 +35,7 @@ export class WeatherProvider {
     const type = 'forecast?';
     const search: URLSearchParams = new URLSearchParams();
     search.set('lat', coordinates.lat);
-    search.set('lon', coordinates.lon);
+    search.set('lon', coordinates.lng);
     search.set('appid', this.apiKey);
     search.set('units', 'metric');
 
@@ -54,7 +54,7 @@ export class WeatherProvider {
     const window = getWindow();
     if (window.navigator.geolocation) {
       window.navigator.geolocation.getCurrentPosition((position) => {
-        callback({ lat: position.coords.latitude, lon: position.coords.longitude });
+        callback({ lat: position.coords.latitude, lng: position.coords.longitude });
       });
     }
   }

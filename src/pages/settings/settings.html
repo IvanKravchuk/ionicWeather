@@ -22,5 +22,5 @@
         {{ city }}
       </ion-item>
     </ion-list>  
-    <maps (getLocation)="getLocation($event)"></maps>
+    <maps (getLocation)="getLocation($event)" [coordinates]="coordinates"></maps>
 </ion-content>
