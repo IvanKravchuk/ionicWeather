@@ -8,7 +8,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetailsPage {
 
-  weather: any;
+  public weather: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.weather = navParams.data;

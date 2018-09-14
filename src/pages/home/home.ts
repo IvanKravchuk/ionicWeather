@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { WeatherProvider } from '../../providers/weather/weather';
 import { DetailsPage } from '../details/details';
+import { TITLES } from '../../assets/consts/titles';
 
 @Component({
   selector: 'page-home',
@@ -9,13 +10,19 @@ import { DetailsPage } from '../details/details';
 })
 export class HomePage {
 
-  weather: any;
-  city: string;
-  title: string = 'Home';
-  lat: string;
-  lng: string;
+  public weather: any;
+  public city: string;
+  public title: string;
+  public lat: string;
+  public lng: string;
 
-  constructor(public navCtrl: NavController, private wp: WeatherProvider, public navParams: NavParams, public events: Events) {
+  constructor(
+    public navCtrl: NavController,
+    private wp: WeatherProvider,
+    public navParams: NavParams,
+    public events: Events
+  ) {
+    this.title = TITLES.home;
     this.events.subscribe('show-forecast', (data) => {
       this.city = data.city;
       this.lat = data.lat;

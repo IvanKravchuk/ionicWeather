@@ -1,4 +1,4 @@
-export const NAMES = [
+export const CITIES = [
     'Amsterdam',
     'Berlin',
     'Bueno Aires',

@@ -1,15 +1,22 @@
 import { WeatherProvider } from './../../providers/weather/weather';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Keyboard } from '@ionic-native/keyboard';
 import { NavController, NavParams, Events, ToastController } from 'ionic-angular';
-import { NAMES } from '../../assets/consts/cities';
+import { CITIES } from '../../assets/consts/cities';
+import { TITLES } from '../../assets/consts/titles';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
   providers: [Keyboard]
 })
-export class SettingsPage {
+export class SettingsPage implements OnInit {
+
+  public city: string;
+  public title: string;
+  public cities: string[];
+  public showCitiesList: boolean = false;
+  public coordinates: any;
 
   constructor(
     public navCtrl: NavController,
@@ -19,24 +26,11 @@ export class SettingsPage {
     private toast: ToastController,
     private wp: WeatherProvider
   ) {
-    this.title = 'Settings';
-    this.initializeCities();
+    this.title = TITLES.settings;
   }
 
-  ionViewWillEnter() {
-    this.wp.getCoordinates().then(coordinates => {
-      this.coordinates = coordinates;
-    });
-  }
-
-  city: string;
-  title: string;
-  cities: string[];
-  showCitiesList: boolean = false;
-  coordinates: any;
-
-  initializeCities() {
-    this.cities = NAMES;
+  ngOnInit(): void {
+    this.coordinates = this.wp.getCoordinates();
   }
 
   getLocation(coordinates) {
@@ -49,9 +43,8 @@ export class SettingsPage {
   }
 
   getCities() {
-    this.initializeCities();
-    if (this.city && this.city.trim() != '') {
-      this.cities = this.cities.filter((item) => {
+    if (this.city && this.city.trim() !== '') {
+     this.cities = CITIES.filter((item) => {
         return (item.toLowerCase().indexOf(this.city.toLowerCase()) > -1);
       }).slice(0, 3);
       this.showCitiesList = true;

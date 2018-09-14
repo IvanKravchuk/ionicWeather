@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Open Weather</ion-title>
+    <ion-title>{{title}}</ion-title>
     <button ion-button round outline menuToggle>
       <ion-icon name="menu" class="icon-menu"></ion-icon>
     </button>
@@ -12,22 +12,13 @@
 </ion-header>
 
 <ion-content padding class="home">
-  <!-- <ion-list>
-    <ion-item class="item" *ngFor="let w of weather" (click)="showDetails(w)">
-      <h3>date {{w.data | date:'MM/dd/yyyy h:mm a' }}</h3>
-      <h3>temperature {{w.temp}} C</h3>
-    </ion-item>
-  </ion-list> -->
-  <ion-list [virtualScroll]="weather" [headerFn]="myHeaderFn">
-
+  <ion-list [virtualScroll]="weather" [approxItemHeight]=" '0px' " [headerFn]="myHeaderFn">
     <ion-item-divider *virtualHeader="let header">
-      {{ header.toString() }}
+      {{ header }}
     </ion-item-divider>
-
-    <ion-item *virtualItem="let w">
+    <ion-item *virtualItem="let w" (click)="showDetails(w)">
       <h3 class="item">{{w.data | date:'h:mm a' }}</h3>
       <h3 class="item">temperature {{w.temp}} C</h3>
     </ion-item>
-
   </ion-list>
 </ion-content>

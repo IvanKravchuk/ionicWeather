@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnChanges, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ElementRef, ViewChild, Input, SimpleChanges } from '@angular/core';
 
 declare var google: any;
 
@@ -6,35 +6,27 @@ declare var google: any;
   selector: 'maps',
   templateUrl: 'maps.html'
 })
-export class MapsComponent implements OnChanges {
+export class MapsComponent implements OnInit {
 
-  map: any;
+  private map: any;
   @Input() coordinates: any;
   @ViewChild('map') el: ElementRef;
-
-
   @Output() getLocation = new EventEmitter();
 
   constructor() { }
 
-  ngOnChanges(): void {
-    if (this.coordinates) {
-      this.initMap(this.coordinates);
-    }
-  }
-
-  initMap(c): void {
+  ngOnInit(): void {
     let mapCanvas = this.el.nativeElement;
-    // var myCenter = new google.maps.LatLng(48, 24);
-    let myCenter = new google.maps.LatLng(c.lat, c.lng);
-    let mapOptions = {
-      center: myCenter,
-      zoom: 8
-    }
-    this.map = new google.maps.Map(mapCanvas, mapOptions);
-    this.map.addListener('click', (e) => {
-      this.getLocation.emit({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+    this.map = new google.maps.Map(mapCanvas);
+    this.coordinates.then(coordinates => {
+      this.map.setCenter({ lat: coordinates.lat, lng: coordinates.lng });
+      this.map.setZoom(8);
+      this.map.addListener('click', (e) => {
+        this.getLocation.emit({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+      });
     });
   }
+
+
 
 }
